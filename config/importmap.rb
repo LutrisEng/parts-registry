@@ -9,5 +9,5 @@ pin '@hotwired/stimulus-loading', to: 'stimulus-loading.js', preload: true
 pin_all_from 'app/javascript/controllers', under: 'controllers'
 pin 'cash-dom' # @8.1.1
 pin 'shopify-buy' # @2.15.1
-pin "trix"
-pin "@rails/actiontext", to: "actiontext.js"
+pin 'trix'
+pin '@rails/actiontext', to: 'actiontext.js'
