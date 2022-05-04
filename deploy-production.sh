@@ -2,4 +2,4 @@
 
 set -euxo pipefail
 
-exec fly deploy -c fly.toml "$@"
+exec flyctl deploy -c fly.toml "$@"
