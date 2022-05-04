@@ -88,4 +88,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.cf_access_aud = 'e46c2f587b48697fc8a02af3e9cfdc0729a55a6a7b7beae80264d36034a15a38'
+
+  config.require_master_key = true
+  config.read_encrypted_secrets = true
 end
