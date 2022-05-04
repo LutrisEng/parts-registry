@@ -46,7 +46,7 @@ module Admin
     private
 
     def part_params
-      params[:part].permit(:part_number, :name, :status)
+      params.require(:part).permit(:part_number, :name, :status, :description)
     end
   end
 end

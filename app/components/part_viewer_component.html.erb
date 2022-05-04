@@ -1,6 +1,6 @@
 <h1>
   <%= @part.part_number %>
-  <span class="<%= @status_class %> text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
+  <span class="<%= @status_class %> text-xs font-semibold mr-2 px-2.5 py-0.5 rounded align-middle">
     <%= t @part.status_t %>
   </span>
 </h1>
@@ -8,3 +8,7 @@
 <% if @part.created_by %>
   <p>Created by <%= @part.created_by %></p>
 <% end %>
+<h3>Description</h3>
+<div href="#" class="block p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+  <%= @part.description %>
+</div>

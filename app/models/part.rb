@@ -8,6 +8,8 @@ class Part < ApplicationRecord
   PUBLIC_STATUSES = %i[rtm].freeze
   enum status: ALL_STATUSES.zip(ALL_STATUSES.map(&:to_s)).to_h
 
+  has_rich_text :description
+
   def public?
     PUBLIC_STATUSES.include? status.to_sym
   end

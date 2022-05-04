@@ -9,6 +9,11 @@
     <%= f.label :status %>
     <%= f.select :status, Part::ALL_STATUSES.map { |status| [t("status.#{status}"), status] } %>
 
+    <%= f.label :description %>
+    <div class="col-span-6 md:col-span-4 lg:col-span-5">
+      <%= f.rich_text_area :description %>
+    </div>
+
     <%= f.label "Actions" %>
     <%= f.submit %>
     <% if !@creating && Pundit.policy(@user, @part).destroy? %>
