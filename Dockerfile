@@ -22,12 +22,11 @@ RUN apt-get update && \
 COPY --from=overmind /app/overmind-2.2.2/overmind /usr/local/bin/
 
 WORKDIR /app
-ENV RAILS_ENV=$RAILS_ENV
 COPY Gemfile* ./
 RUN bundle install
 COPY . ./
-RUN bin/rails assets:precompile
+RUN RAILS_ENV=$RAILS_ENV bin/rails assets:precompile
 
 EXPOSE 8080
-CMD overmind start
+CMD RAILS_ENV=$RAILS_ENV overmind start
 
