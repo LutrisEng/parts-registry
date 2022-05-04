@@ -12,6 +12,7 @@ b2:
   secret_access_key: <%= Rails.application.credentials.dig(Rails.env.to_sym, :b2, :secret_access_key) %>
   bucket: <%= Rails.application.credentials.dig(Rails.env.to_sym, :b2, :bucket) %>
   region: "us-west-004"
+  endpoint: https:/s3.us-west-004.backblazeb2.com
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
