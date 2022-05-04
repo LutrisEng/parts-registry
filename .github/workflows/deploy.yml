@@ -13,6 +13,8 @@ jobs:
       - name: Set up Fly.io
         uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy
-        run: echo "${{ secrets.RAILS_MASTER_KEY }}" > config/master.key && ./deploy-staging.sh && ./deploy-production.sh
+        run: |
+          ./deploy-staging.sh --local-only
+          ./deploy-production.sh --local-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
