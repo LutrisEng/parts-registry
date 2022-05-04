@@ -6,24 +6,17 @@ kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
-[build]
-  builder = "paketobuildpacks/builder:full"
-  buildpacks = ["gcr.io/paketo-buildpacks/ruby", "fagiani/apt"]
-  [build.args]
-    BUNDLER_VERSION = "2.3.7"
-    NODE_VERSION = "14"
-    RUBY_VERSION = "3.1.2"
-    RAILS_ENV = "staging"
-    NODE_ENV = "production"
-
-[deploy]
-  release_command = "bundle exec rails db:migrate --trace"
-  strategy = "bluegreen"
+[build.args]
+  RAILS_ENV = "staging"
 
 [env]
-  PORT = "8080"
   RAILS_ENV = "staging"
   RAILS_LOG_TO_STDOUT = "yes"
+  PORT = "8080"
+
+[deploy]
+  release_command = "bin/rails db:migrate --trace"
+  strategy = "bluegreen"
 
 [metrics]
   port = 9394
