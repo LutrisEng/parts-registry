@@ -26,7 +26,12 @@ ENV RAILS_ENV=$RAILS_ENV
 COPY Gemfile* ./
 RUN bundle install
 COPY . ./
-RUN bin/rails assets:precompile
+RUN mv config/credentials.yml.enc{,.real} && \
+    mv config/credentials.yml.enc{.fake,} && \
+    mv config/master.key{.fake,} && \
+    bin/rails assets:precompile && \
+    rm config/master.key && \
+    mv config/credentials.yml.enc{.real,}
 
 EXPOSE 8080
 CMD overmind start
