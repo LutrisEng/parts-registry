@@ -4,8 +4,8 @@ class Part < ApplicationRecord
   validates_uniqueness_of :part_number
   validates_presence_of :part_number
 
-  ALL_STATUSES = %i[draft rtm].freeze
-  PUBLIC_STATUSES = %i[rtm].freeze
+  ALL_STATUSES = %i[draft prototype engineering_sample private_shelved public_draft public_shelved rtm eol].freeze
+  PUBLIC_STATUSES = %i[public_draft public_shelved rtm eol].freeze
   enum status: ALL_STATUSES.zip(ALL_STATUSES.map(&:to_s)).to_h
 
   has_rich_text :description

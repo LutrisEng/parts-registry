@@ -34,6 +34,24 @@ en:
     draft:
       long: Draft
       short: Draft
+    prototype:
+      long: Prototype
+      short: Proto
+    engineering_sample:
+      long: Engineering Sample
+      short: ES
+    private_shelved:
+      long: Shelved (Private)
+      short: Shelved
+    public_draft:
+      long: Public Draft
+      short: Draft
+    public_shelved:
+      long: Shelved (Public)
+      short: Shelved
     rtm:
       long: RTM (Release to Manufacturing)
       short: RTM
+    eol:
+      long: End of Life
+      short: EOL
