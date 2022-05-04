@@ -23,9 +23,9 @@ COPY --from=overmind /app/overmind-2.2.2/overmind /usr/local/bin/
 
 WORKDIR /app
 ENV RAILS_ENV=$RAILS_ENV
-ADD Gemfile* .
+COPY Gemfile* ./
 RUN bundle install
-COPY . .
+COPY . ./
 RUN bin/rails assets:precompile
 
 EXPOSE 8080
