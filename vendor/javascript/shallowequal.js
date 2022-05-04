@@ -1,0 +1,2 @@
+var r={};r=function shallowEqual(r,e,t,a){var f=t?t.call(a,r,e):void 0;if(void 0!==f)return!!f;if(r===e)return true;if("object"!==typeof r||!r||"object"!==typeof e||!e)return false;var l=Object.keys(r);var o=Object.keys(e);if(l.length!==o.length)return false;var n=Object.prototype.hasOwnProperty.bind(e);for(var v=0;v<l.length;v++){var i=l[v];if(!n(i))return false;var u=r[i];var s=e[i];f=t?t.call(a,u,s,i):void 0;if(false===f||void 0===f&&u!==s)return false}return true};var e=r;export default e;
+

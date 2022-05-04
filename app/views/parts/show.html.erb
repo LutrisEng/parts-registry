@@ -1,0 +1,11 @@
+<%= title "#{@part.part_number} - #{@part.name}" %>
+
+<div class="mb-5">
+  <%= render(BaseButtonComponent.new(path: parts_path)) do %>
+    &larr; All Parts
+  <% end %>
+  <%= render(BaseButtonComponent.new(path: admin_part_path(@part))) do %>
+    Admin View
+  <% end %>
+</div>
+<%= render(PartViewerComponent.new(part: @part)) %>

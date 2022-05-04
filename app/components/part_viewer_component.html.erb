@@ -1,0 +1,7 @@
+<h1>
+  <%= @part.part_number %>
+  <span class="<%= @status_class %> text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">
+    <%= t @part.status_t %>
+  </span>
+</h1>
+<h2><%= @part.name %></h2>

@@ -1,0 +1,7 @@
+<%= title 'Parts' %>
+
+<h1>Parts</h1>
+<%= render(BaseButtonComponent.new(path: new_admin_part_path, style: :primary)) do %>
+  New
+<% end %>
+<%= render(PartsViewerComponent.new(parts: @parts, admin: true)) %>

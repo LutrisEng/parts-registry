@@ -1,0 +1,4 @@
+<%- title "Editing #{@part.part_number}" %>
+
+<h1>Editing <%= @part.part_number %></h1>
+<%= render(PartEditorComponent.new(user: current_user, part: @part)) %>

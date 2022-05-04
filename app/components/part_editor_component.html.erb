@@ -1,0 +1,18 @@
+<%= form_for @part, url: @creating ? admin_parts_path : admin_part_path(@part), method: @creating ? :post : :put, builder: ComponentFormBuilder do |f| %>
+  <%= render(InputGroupComponent.new) do %>
+    <%= f.label :part_number %>
+    <%= f.text_field :part_number %>
+
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+
+    <%= f.label :status %>
+    <%= f.select :status, Part::ALL_STATUSES.map { |status| [t("status.#{status}"), status] } %>
+
+    <%= f.label "Actions" %>
+    <%= f.submit %>
+    <% if !@creating && Pundit.policy(@user, @part).destroy? %>
+      <%= f.submit "Delete Part", formmethod: :delete, class: BaseButtonComponent::STYLES[:danger] %>
+    <% end %>
+  <% end %>
+<% end %>
