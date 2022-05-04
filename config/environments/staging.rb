@@ -89,6 +89,5 @@ Rails.application.configure do
 
   config.cf_access_aud = '72daeafc9cbc848652ccb32ba2b6eae203ea4ba039c9600b25ed0d44931504b4'
 
-  config.require_master_key = true
   config.read_encrypted_secrets = true
 end
