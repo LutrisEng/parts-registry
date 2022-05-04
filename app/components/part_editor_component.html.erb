@@ -7,7 +7,7 @@
     <%= f.text_field :name %>
 
     <%= f.label :status %>
-    <%= f.select :status, Part::ALL_STATUSES.map { |status| [Part.status_to_t(status), status] } %>
+    <%= f.select :status, Part::ALL_STATUSES.map { |status| [t Part.status_to_t(status), status] } %>
 
     <%= f.label :description %>
     <div class="col-span-6 md:col-span-4 lg:col-span-5">
