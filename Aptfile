@@ -1,4 +1,4 @@
-libvips-dev
+https://deb.debian.org/debian/pool/main/v/vips/libvips42_8.10.5-2_amd64.deb
 imagemagick
 ffmpeg
 libpoppler-dev
