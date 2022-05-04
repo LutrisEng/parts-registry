@@ -18,11 +18,19 @@ class Part < ApplicationRecord
     part_number
   end
 
-  def status_t
+  def self.status_to_t(status)
     "status.#{status}.long"
   end
 
-  def short_status_t
+  def status_t
+    Part.status_to_t(status)
+  end
+
+  def self.status_to_short_t(status)
     "status.#{status}.short"
+  end
+
+  def short_status_t
+    Part.status_to_short_t(status)
   end
 end

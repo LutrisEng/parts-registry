@@ -5,7 +5,6 @@ RUN curl -L https://github.com/DarthSim/overmind/archive/refs/tags/v2.2.2.tar.gz
 WORKDIR /app/overmind-2.2.2
 RUN go build .
 
-ARG RAILS_ENV=production
 FROM ruby:3.1.2-bullseye@sha256:e75f1da5372940f6997c94c9c48db8e4292fb625ca49035fa53e7e5b9124d6fb
 
 RUN apt-get update && \
@@ -22,11 +21,13 @@ RUN apt-get update && \
 COPY --from=overmind /app/overmind-2.2.2/overmind /usr/local/bin/
 
 WORKDIR /app
+ARG RAILS_ENV=production
+ENV RAILS_ENV=$RAILS_ENV
 COPY Gemfile* ./
 RUN bundle install
 COPY . ./
-RUN RAILS_ENV=$RAILS_ENV bin/rails assets:precompile
+RUN bin/rails assets:precompile
 
 EXPOSE 8080
-CMD RAILS_ENV=$RAILS_ENV overmind start
+CMD overmind start
 
