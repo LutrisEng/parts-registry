@@ -4,8 +4,10 @@
   <%= render(BaseButtonComponent.new(path: admin_parts_path)) do %>
     &larr; All Parts
   <% end %>
-  <%= render(BaseButtonComponent.new(path: part_path(@part))) do %>
-    Normal User View
+  <% if @part.public? %>
+    <%= render(BaseButtonComponent.new(path: part_path(@part))) do %>
+      Public View
+    <% end %>
   <% end %>
   <%= render(BaseButtonComponent.new(path: edit_admin_part_path(@part))) do %>
     Edit
