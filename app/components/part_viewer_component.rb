@@ -12,7 +12,7 @@ class PartViewerComponent < ViewComponent::Base
     when :private_shelved
       'bg-orange-100 text-orange-800'
     when :public_draft
-      'bg-blue-100 text-blue-100'
+      'bg-blue-100 text-blue-800'
     when :public_shelved
       'bg-orange-100 text-orange-800'
     when :rtm
