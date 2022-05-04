@@ -1,2 +1,4 @@
-libvips
+libvips-dev
 imagemagick
+ffmpeg
+libpoppler-dev
