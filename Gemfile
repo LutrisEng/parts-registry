@@ -94,3 +94,5 @@ gem 'sentry-ruby', '~> 5.3'
 gem 'view_component', '~> 2.53'
 
 gem 'view_component-form', '~> 0.2.4'
+
+gem 'aws-sdk-s3', '~> 1.114', require: false

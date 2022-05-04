@@ -8,7 +8,7 @@ processes = []
 
 [build]
   builder = "paketobuildpacks/builder:full"
-  buildpacks = ["gcr.io/paketo-buildpacks/ruby"]
+  buildpacks = ["gcr.io/paketo-buildpacks/ruby", "fagiani/apt"]
   [build.args]
     BUNDLER_VERSION = "2.3.7"
     NODE_VERSION = "14"
