@@ -7,5 +7,12 @@
   <%= render(BaseButtonComponent.new(path: admin_part_path(@part))) do %>
     Admin View
   <% end %>
+  <% if @part.shopify_product %>
+    <span data-add-to-cart="<%= @part.shopify_product.variants[0].id %>">
+      <%= render(BaseButtonComponent.new(path: '#')) do %>
+        Add to Cart
+      <% end %>
+    </span>
+  <% end %>
 </div>
 <%= render(PartViewerComponent.new(part: @part)) %>

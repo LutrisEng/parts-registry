@@ -2,7 +2,7 @@
 
 module Ecommerce
   module ShopifyAuth
-    module_function :create_admin_session, :create_admin_client
+    module_function :create_admin_session
 
     def create_admin_session
       credentials = Rails.application.credentials.dig(Rails.env.to_sym, :shopify)
