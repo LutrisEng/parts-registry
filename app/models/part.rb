@@ -98,7 +98,7 @@ class Part < ApplicationRecord
     product.tags = ''
     product.template_suffix = nil
     product.vendor = vendor
-
+    product.published_scope = 'global'
     product.title = "#{part_number} - #{name}"
     # Update the existing variant if it already exists
     # We want to set pricing in Shopify
