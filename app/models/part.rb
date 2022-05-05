@@ -56,10 +56,14 @@ class Part < ApplicationRecord
     return nil unless shopify_product_id
     return nil unless shopify_session
 
-    ShopifyAPI::Product.find(
-      session: shopify_session,
-      id: shopify_product_id
-    )
+    begin
+      ShopifyAPI::Product.find(
+        session: shopify_session,
+        id: shopify_product_id
+      )
+    rescue ShopifyAPI::Errors::HttpResponseError => e
+      raise e unless e.code == 404
+    end
   end
 
   def shopify_product
