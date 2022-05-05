@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :parts, param: :part_number do
       member do
         post :create_shopify
+        post :destroy_shopify
       end
     end
   end

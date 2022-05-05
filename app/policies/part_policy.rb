@@ -38,4 +38,8 @@ class PartPolicy < ApplicationPolicy
   def create_shopify?
     admin? && public?
   end
+
+  def destroy_shopify?
+    admin?
+  end
 end
