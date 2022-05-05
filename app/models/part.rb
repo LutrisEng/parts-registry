@@ -11,7 +11,6 @@ class Part < ApplicationRecord
                          message: '%{value} is not a valid ISO 3166-1 alpha-2 country code.',
                          allow_nil: true,
                          allow_blank: true
-  validates_numericality_of :hs_code, only_integer: true, allow_nil: true, allow_blank: true
 
   ALL_STATUSES = %i[draft prototype engineering_sample private_shelved public_draft public_shelved rtm eol].freeze
   PUBLIC_STATUSES = %i[public_draft public_shelved rtm eol].freeze
@@ -160,6 +159,6 @@ class Part < ApplicationRecord
   end
 
   def hs_code_description
-    HarmonizedSystemCode.find_by_hscode(hs_code)&.description unless hs_code.nil?
+    HarmonizedSystemCode.find_by_extended_hscode(hs_code)&.description unless hs_code.nil?
   end
 end

@@ -20,4 +20,15 @@ class HarmonizedSystemCode < ApplicationRecord
       HarmonizedSystemCode.create!(attrs)
     end
   end
+
+  def self.find_by_extended_hscode(hscode)
+    numbers = hscode.delete('^0-9')
+    until numbers.blank?
+      record = HarmonizedSystemCode.find_by_hscode(numbers)
+      return record if record
+
+      numbers = numbers.chop
+    end
+    nil
+  end
 end
