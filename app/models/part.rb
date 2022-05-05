@@ -63,6 +63,9 @@ class Part < ApplicationRecord
       )
     rescue ShopifyAPI::Errors::HttpResponseError => e
       raise e unless e.code == 404
+
+      update!(shopify_product_id: nil)
+      nil
     end
   end
 
