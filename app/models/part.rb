@@ -86,6 +86,10 @@ class Part < ApplicationRecord
     mass_grams * DEFAULT_MASS_UNIT if mass_grams
   end
 
+  def sentry_transaction
+    Sentry.get_current_scope&.get_transaction || Sentry.start_transaction
+  end
+
   def update_shopify_product(product)
     product.body_html = description.to_s
     product.handle = part_number
@@ -138,6 +142,42 @@ class Part < ApplicationRecord
     ShopifyAPI::InventoryItem.find(id: inventory_item_id, session: shopify_session)
   end
 
+  def publish_shopify_product(product)
+    span = sentry_transaction.start_child(op: :publish_shopify_product, description: 'Publish Shopify product')
+    begin
+      span.set_data(:product_id, product.id)
+
+      client = ShopifyAPI::Clients::Graphql::Admin.new(
+        session: shopify_session
+      )
+
+      query = <<~QUERY
+        mutation publishProduct($id: ID!) {
+          publishablePublishToCurrentChannel(id: $id) {
+            publishable {
+              availablePublicationCount
+            }
+          }
+        }
+      QUERY
+      response = client.query(query:, variables: { id: "gid://shopify/Product/#{product.id}" })
+
+      Sentry.add_breadcrumb(Sentry::Breadcrumb.new(
+        category: 'shopify',
+        message: 'Received response from publishProduct mutation',
+        level: 'info',
+        data: {
+          code: response.code,
+          headers: response.headers,
+          body: response.body
+        }
+      ))
+      raise StandardError, response.body[:errors].first[:message] if response.body[:errors]
+    ensure
+      span.finish
+    end
+  end
+
   def update_inventory_item(inventory_item)
     inventory_item.country_code_of_origin = country_of_origin
     inventory_item.harmonized_system_code = hs_code
@@ -145,35 +185,57 @@ class Part < ApplicationRecord
   end
 
   def update_shopify_product!
-    return unless shopify_product
+    span = sentry_transaction.start_child(op: :update_shopify_product!, description: 'Update Shopify product')
+    begin
+      return unless shopify_product
 
-    update_shopify_product(shopify_product)
-    shopify_product.save
+      span.set_data(:product_id, shopify_product_id)
 
-    inventory_item = inventory_item_for_product(shopify_product)
-    return unless inventory_item
+      update_shopify_product(shopify_product)
+      shopify_product.save
 
-    update_inventory_item(inventory_item)
-    inventory_item.save
+      inventory_item = inventory_item_for_product(shopify_product)
+
+      if inventory_item
+        update_inventory_item(inventory_item)
+        inventory_item.save
+      end
+
+      publish_shopify_product(shopify_product)
+    ensure
+      span.finish
+    end
   end
 
   def destroy_shopify_product!
-    return unless shopify_product_id
+    span = sentry_transaction.start_child(op: :destroy_shopify_product!, description: 'Destroy Shopify product')
+    begin
+      return unless shopify_product_id
 
-    ShopifyAPI::Product.delete(id: shopify_product_id, session: shopify_session!)
+      span.set_data(:product_id, shopify_product_id)
 
-    self.shopify_product_id = nil
+      ShopifyAPI::Product.delete(id: shopify_product_id, session: shopify_session!)
+
+      self.shopify_product_id = nil
+    ensure
+      span.finish
+    end
   end
 
   def create_shopify_product!
-    return if shopify_product_id
+    span = sentry_transaction.start_child(op: :create_shopify_product!, description: 'Create Shopify product')
+    begin
+      return if shopify_product_id
 
-    product = ShopifyAPI::Product.new(session: shopify_session!)
-    update_shopify_product(product)
-    product.save(update_object: true)
-    update_shopify_product!
+      product = ShopifyAPI::Product.new(session: shopify_session!)
+      update_shopify_product(product)
+      product.save(update_object: true)
+      update_shopify_product!
 
-    update!(shopify_product_id: product.id)
+      update!(shopify_product_id: product.id)
+    ensure
+      span.finish
+    end
   end
 
   def shopify_product_url
