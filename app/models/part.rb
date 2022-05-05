@@ -111,6 +111,8 @@ class Part < ApplicationRecord
     return unless session
 
     ShopifyAPI::Product.delete(shopify_product_id)
+
+    self.shopify_product_id = nil
   end
 
   def create_shopify_product!

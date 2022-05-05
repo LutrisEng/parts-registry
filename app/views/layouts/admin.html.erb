@@ -16,6 +16,11 @@
       <div class="p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800" role="alert">
         <span class="font-medium">Admin mode!</span> You are signed in to the admin panel as <%= current_user.email %>.
       </div>
+      <% if flash[:notice] %>
+        <div class="p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800" role="alert">
+          <span class="font-medium">Notice</span> <%= flash[:notice] %>
+        </div>
+      <% end %>
       <%= yield %>
     </main>
   </body>

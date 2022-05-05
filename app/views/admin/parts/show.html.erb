@@ -16,6 +16,7 @@
     <%= render(BaseButtonComponent.new(path: @part.shopify_product_url)) do %>
       View in Shopify
     <% end %>
+    <%= button_to "Destroy Shopify Product", { action: 'destroy_shopify' }, class: BaseButtonComponent::STYLES[:danger], form_class: 'inline' %>
   <% elsif @part.can_create_shopify_product? %>
     <%= button_to "Create Shopify Product", { action: 'create_shopify' }, class: BaseButtonComponent::STYLES[:primary], form_class: 'inline' %>
   <% end %>

@@ -25,6 +25,7 @@ module Admin
       part = authorize Part.new(part_params)
       part.created_by = current_user.email
       part.save!
+      flash[:notice] = 'Part created!'
       redirect_to admin_part_path(part), status: :see_other
     end
 
@@ -35,17 +36,28 @@ module Admin
     def update
       part = find_part
       part.update!(part_params)
+      flash[:notice] = 'Part updated!'
       redirect_to admin_part_path(part), status: :see_other
     end
 
     def destroy
       find_part.destroy!
+      flash[:notice] = 'Part destroyed!'
       redirect_to admin_parts_path, status: :see_other
     end
 
     def create_shopify
       part = find_part
       part.create_shopify_product!
+      flash[:notice] = 'Shopify product created!'
+      redirect_to admin_part_path(part), status: :see_other
+    end
+
+    def destroy_shopify
+      part = find_part
+      part.destroy_shopify_product!
+      part.save!
+      flash[:notice] = 'Shopify product destroyed!'
       redirect_to admin_part_path(part), status: :see_other
     end
 
