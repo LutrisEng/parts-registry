@@ -6,6 +6,12 @@ class Part < ApplicationRecord
 
   validates_uniqueness_of :part_number
   validates_presence_of :part_number
+  validates_inclusion_of :country_of_origin,
+                         in: IsoCountryCodes.all.map(&:alpha2),
+                         message: '%{value} is not a valid ISO 3166-1 alpha-2 country code.',
+                         allow_nil: true,
+                         allow_blank: true
+  validates_numericality_of :hs_code, only_integer: true, allow_nil: true, allow_blank: true
 
   ALL_STATUSES = %i[draft prototype engineering_sample private_shelved public_draft public_shelved rtm eol].freeze
   PUBLIC_STATUSES = %i[public_draft public_shelved rtm eol].freeze
@@ -61,10 +67,11 @@ class Part < ApplicationRecord
   DEFAULT_MASS_UNIT = GRAMS
 
   def mass
-    @mass ||= mass_grams * DEFAULT_MASS_UNIT if mass_grams
+    mass_grams * DEFAULT_MASS_UNIT if mass_grams
   end
 
   def update_shopify_product(product)
+    session = Ecommerce::ShopifyAuth.create_admin_session
     product.body_html = ''
     product.handle = part_number
     product.images = []
@@ -72,9 +79,7 @@ class Part < ApplicationRecord
     product.product_type = 'Part'
     product.published_scope = 'global'
     # Allow this to be modified in the Shopify dash
-    if product.status.nil?
-      product.status = 'draft'
-    end
+    product.status = 'draft' if product.status.nil?
     product.tags = ''
     product.template_suffix = nil
     product.vendor = vendor
@@ -97,18 +102,39 @@ class Part < ApplicationRecord
     product.variants[0] = variant
   end
 
+  def inventory_item_for_product(product)
+    return nil unless product.variants&.first
+
+    inventory_item_id = product.variants.first[:inventory_item_id]
+    return nil unless inventory_item_id
+
+    ShopifyAPI::InventoryItem.find(inventory_item_id, session: @session)
+  end
+
+  def update_inventory_item(inventory_item)
+    inventory_item.country_code_of_origin = country_of_origin
+    inventory_item.harmonized_system_code = hs_code
+    inventory_item.sku = part_number
+  end
+
   def update_shopify_product!
-    if shopify_product
-      update_shopify_product(shopify_product)
-      shopify_product.save
-    end
+    return unless shopify_product
+
+    update_shopify_product(shopify_product)
+    shopify_product.save
+
+    inventory_item = inventory_item_for_product(product)
+    return unless inventory_item
+
+    update_inventory_item(inventory_item)
+    inventory_item.save
   end
 
   def destroy_shopify_product!
     return unless shopify_product_id
 
-    session = Ecommerce::ShopifyAuth.create_admin_session
-    return unless session
+    @session ||= Ecommerce::ShopifyAuth.create_admin_session
+    return unless @session
 
     ShopifyAPI::Product.delete(shopify_product_id)
 
@@ -130,5 +156,9 @@ class Part < ApplicationRecord
 
   def shopify_product_url
     "https://lutris.myshopify.com/admin/products/#{shopify_product_id}" if shopify_product_id
+  end
+
+  def hs_code_description
+    HarmonizedSystemCode.find_by_hscode(hs_code)&.description unless hs_code.nil?
   end
 end

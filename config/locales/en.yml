@@ -32,26 +32,37 @@
 en:
   status:
     draft:
-      long: Draft
-      short: Draft
+      long: "Draft"
+      short: "Draft"
     prototype:
-      long: Prototype
-      short: Proto
+      long: "Prototype"
+      short: "Proto"
     engineering_sample:
-      long: Engineering Sample
-      short: ES
+      long: "Engineering Sample"
+      short: "ES"
     private_shelved:
-      long: Shelved (Private)
-      short: Shelved
+      long: "Shelved (Private)"
+      short: "Shelved"
     public_draft:
-      long: Public Draft
-      short: Draft
+      long: "Public Draft"
+      short: "Draft"
     public_shelved:
-      long: Shelved (Public)
-      short: Shelved
+      long: "Shelved (Public)"
+      short: "Shelved"
     rtm:
-      long: RTM (Release to Manufacturing)
-      short: RTM
+      long: "RTM (Release to Manufacturing)"
+      short: "RTM"
     eol:
-      long: End of Life
-      short: EOL
+      long: "End of Life"
+      short: "EOL"
+  activerecord:
+    attributes:
+      part:
+        part_number: "Part Number"
+        name: "Name"
+        status: "Status"
+        vendor: "Vendor"
+        mass: "Mass"
+        mass_grams: "Mass (in grams)"
+        country_of_origin: "Country of Origin"
+        hs_code: "Harmonized System Code"

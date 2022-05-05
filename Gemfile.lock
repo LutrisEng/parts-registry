@@ -111,6 +111,7 @@ GEM
     childprocess (4.1.0)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
+    date (3.2.2)
     debug (1.5.0)
       irb (>= 1.3.6)
       reline (>= 0.2.7)
@@ -134,6 +135,7 @@ GEM
     io-console (0.5.11)
     irb (1.4.1)
       reline (>= 0.3.0)
+    iso_country_codes (0.7.8)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -179,6 +181,10 @@ GEM
     nokogiri (1.13.4-x86_64-linux)
       racc (~> 1.4)
     oj (3.13.11)
+    open-uri (0.2.0)
+      stringio
+      time
+      uri
     openssl (3.0.0)
     parallel (1.22.1)
     parser (3.1.2.0)
@@ -285,6 +291,7 @@ GEM
     spring (4.0.0)
     stimulus-rails (1.0.4)
       railties (>= 6.0.0)
+    stringio (3.0.1)
     strscan (3.0.1)
     tailwindcss-rails (2.0.8)
       railties (>= 6.0.0)
@@ -293,6 +300,8 @@ GEM
     tailwindcss-rails (2.0.8-x86_64-linux)
       railties (>= 6.0.0)
     thor (1.2.1)
+    time (0.2.0)
+      date
     timeout (0.2.0)
     turbo-rails (1.0.1)
       actionpack (>= 6.0.0)
@@ -300,6 +309,7 @@ GEM
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
+    uri (0.11.0)
     view_component (2.53.0)
       activesupport (>= 5.0.0, < 8.0)
       method_source (~> 1.0)
@@ -340,8 +350,10 @@ DEPENDENCIES
   httparty (~> 0.20.0)
   image_processing (~> 1.2)
   importmap-rails
+  iso_country_codes (~> 0.7.8)
   jbuilder
   jwt (~> 2.3)
+  open-uri (~> 0.2.0)
   pg (~> 1.1)
   prometheus_exporter (~> 2.0)
   propshaft

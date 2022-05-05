@@ -8,11 +8,23 @@
 <% if @part.created_by %>
   <p>Created by <%= @part.created_by %></p>
 <% end %>
-<% if @part.vendor %>
-  <p>Vendor: <%= @part.vendor %></p>
+<% unless @part.vendor.blank? %>
+  <p><%= t 'activerecord.attributes.part.vendor' %>: <%=  @part.vendor  %></p>
 <% end %>
 <% if @part.mass %>
-  <p>Mass: <%= @part.mass %></p>
+  <p><%= t 'activerecord.attributes.part.mass' %>: <%= @part.mass %></p>
+<% end %>
+<% unless @part.country_of_origin.blank? %>
+  <p><%= t 'activerecord.attributes.part.country_of_origin' %>: <%= IsoCountryCodes.find(@part.country_of_origin).name %></p>
+<% end %>
+<% unless @part.hs_code.blank? %>
+  <p>
+    <%= t 'activerecord.attributes.part.hs_code' %>:
+    <%= @part.hs_code %>
+    <% if @part.hs_code_description %>
+      (<%= @part.hs_code_description %>)
+    <% end %>
+  </p>
 <% end %>
 <h3>Description</h3>
 <div class="block p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">

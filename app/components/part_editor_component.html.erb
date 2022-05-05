@@ -1,3 +1,11 @@
+<% if @part.errors.full_messages.any? %>
+  <% @part.errors.full_messages.each do |error_message| %>
+    <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+      <span class="font-medium">Validation error!</span> <%= error_message %>
+    </div>
+  <% end %>
+<% end %>
+
 <%= form_for @part, url: @creating ? admin_parts_path : admin_part_path(@part), method: @creating ? :post : :put, builder: ComponentFormBuilder do |f| %>
   <%= render(InputGroupComponent.new) do %>
     <%= f.label :part_number %>
@@ -14,6 +22,12 @@
 
     <%= f.label :mass_grams %>
     <%= f.text_field :mass_grams %>
+
+    <%= f.label :country_of_origin %>
+    <%= f.select :country_of_origin, [["", nil]] + IsoCountryCodes.for_select %>
+
+    <%= f.label :hs_code %>
+    <%= f.text_field :hs_code %>
 
     <%= f.label :description %>
     <div class="col-span-6 md:col-span-4 lg:col-span-5">

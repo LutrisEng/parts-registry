@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_220_505_012_828) do
+ActiveRecord::Schema[7.0].define(version: 20_220_505_042_526) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -55,6 +55,17 @@ ActiveRecord::Schema[7.0].define(version: 20_220_505_012_828) do
     t.index %w[blob_id variation_digest], name: 'index_active_storage_variant_records_uniqueness', unique: true
   end
 
+  create_table 'harmonized_system_codes', force: :cascade do |t|
+    t.string 'section'
+    t.string 'hscode'
+    t.string 'description'
+    t.string 'parent'
+    t.integer 'level'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['hscode'], name: 'index_harmonized_system_codes_on_hscode'
+  end
+
   create_table 'part_attachments', force: :cascade do |t|
     t.string 'ipfs_cid'
     t.string 'filename'
@@ -74,6 +85,8 @@ ActiveRecord::Schema[7.0].define(version: 20_220_505_012_828) do
     t.integer 'shopify_product_id'
     t.float 'mass_grams'
     t.string 'vendor'
+    t.string 'country_of_origin'
+    t.string 'hs_code'
     t.index ['part_number'], name: 'index_parts_on_part_number'
     t.index ['shopify_product_id'], name: 'index_parts_on_shopify_product_id'
     t.index ['vendor'], name: 'index_parts_on_vendor'
