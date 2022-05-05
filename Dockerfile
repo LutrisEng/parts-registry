@@ -21,6 +21,7 @@ RUN apt-get update && \
 COPY --from=overmind /app/overmind-2.2.2/overmind /usr/local/bin/
 
 WORKDIR /app
+ENV RAILS_ENV=production
 COPY Gemfile* ./
 RUN bundle install
 COPY . ./
