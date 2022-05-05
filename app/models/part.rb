@@ -115,10 +115,22 @@ class Part < ApplicationRecord
     product.variants[0] = variant
   end
 
-  def inventory_item_for_product(product)
-    return nil unless product.variants&.first
+  def product_variant_for_product(product)
+    product.variants = [] if product.variants.nil?
+    variant = if product.variants.empty?
+                ShopifyAPI::Variant.new(session: shopify_session)
+              else
+                product.variants.first
+              end
+    product.variants[0] = variant
+    variant
+  end
 
-    inventory_item_id = product.variants.first.inventory_item_id
+  def inventory_item_for_product(product)
+    variant = product_variant_for_product(product)
+    return nil unless variant
+
+    inventory_item_id = variant.inventory_item_id
     return nil unless inventory_item_id
 
     ShopifyAPI::InventoryItem.find(id: inventory_item_id, session: shopify_session)
@@ -164,6 +176,16 @@ class Part < ApplicationRecord
 
   def shopify_product_url
     "https://lutris.myshopify.com/admin/products/#{shopify_product_id}" if shopify_product_id
+  end
+
+  def shopify_storefront_id
+    product = shopify_product
+    return unless shopify_product
+
+    variant = product_variant_for_product(product)
+    return unless variant
+
+    Base64.encode64("gid://shopify/ProductVariant/#{variant.id}")
   end
 
   def hs_code_description

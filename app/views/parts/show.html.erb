@@ -8,7 +8,7 @@
     Admin View
   <% end %>
   <% if @part.shopify_product %>
-    <span data-add-to-cart="<%= @part.shopify_product.variants[0].id %>">
+    <span data-add-to-cart="<%= @part.shopify_storefront_id %>">
       <%= render(BaseButtonComponent.new(path: '#')) do %>
         Add to Cart
       <% end %>
