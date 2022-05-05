@@ -2,8 +2,6 @@
 
 module Ecommerce
   module ShopifyAuth
-    module_function :create_admin_session
-
     def create_admin_session
       credentials = Rails.application.credentials.dig(Rails.env.to_sym, :shopify)
       return nil unless credentials
@@ -12,5 +10,6 @@ module Ecommerce
         auth_header: credentials[:admin_api_token]
       )
     end
+    module_function :create_admin_session
   end
 end
