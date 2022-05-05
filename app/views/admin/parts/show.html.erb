@@ -13,7 +13,7 @@
     Edit
   <% end %>
   <% if @part.shopify_product %>
-    <%= render(BaseButtonComponent.new(path: @part.shopify_product_url)) do %>
+    <%= render(BaseButtonComponent.new(path: @part.shopify_product_url, target: '_blank')) do %>
       View in Shopify
     <% end %>
     <%= button_to "Destroy Shopify Product", { action: 'destroy_shopify' }, class: BaseButtonComponent::STYLES[:danger], form_class: 'inline' %>
