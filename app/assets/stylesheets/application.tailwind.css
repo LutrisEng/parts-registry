@@ -27,6 +27,12 @@
     trix-editor {
         @apply prose dark:prose-invert;
     }
+    .link {
+        @apply text-blue-500 no-underline hover:underline cursor-pointer ;
+    }
+    ul.list {
+        @apply list-disc;
+    }
 }
 
 /*

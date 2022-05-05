@@ -61,6 +61,13 @@ module Admin
       redirect_to admin_part_path(part), status: :see_other
     end
 
+    def add_attachment
+      part = find_part
+      part.attachments.attach(attachment_params[:attachments])
+      part.save!
+      redirect_to admin_part_path(part), status: :see_other
+    end
+
     private
 
     def part_params
@@ -73,8 +80,13 @@ module Admin
         :mass_grams,
         :country_of_origin,
         :hs_code,
-        :image
+        :image,
+        attachments: []
       )
+    end
+
+    def attachment_params
+      params.require(:part).permit(:attachments)
     end
   end
 end

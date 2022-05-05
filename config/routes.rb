@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       member do
         post :create_shopify
         post :destroy_shopify
+        post :add_attachment
       end
     end
   end

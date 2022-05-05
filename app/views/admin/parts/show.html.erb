@@ -21,4 +21,4 @@
     <%= button_to "Create Shopify Product", { action: 'create_shopify' }, class: BaseButtonComponent::STYLES[:primary], form_class: 'inline' %>
   <% end %>
 </div>
-<%= render(PartViewerComponent.new(part: @part)) %>
+<%= render(PartViewerComponent.new(part: @part, admin: true)) %>

@@ -24,9 +24,10 @@ class PartViewerComponent < ViewComponent::Base
     end
   end
 
-  def initialize(part:)
+  def initialize(part:, admin: false)
     super
     @part = part
     @status_class = PartViewerComponent.status_class(part.status)
+    @admin = admin
   end
 end

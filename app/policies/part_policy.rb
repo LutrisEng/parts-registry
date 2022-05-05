@@ -42,4 +42,8 @@ class PartPolicy < ApplicationPolicy
   def destroy_shopify?
     admin?
   end
+
+  def add_attachment?
+    employee?
+  end
 end

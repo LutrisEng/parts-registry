@@ -1,6 +1,6 @@
 <div class="my-6 grid grid-cols-1 md:grid-cols-3 gap-6">
   <% @parts.each do |part| %>
-    <a href="<%= @admin ? admin_part_path(part) : part_path(part) %>" class="block max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    <a href="<%= @admin ? admin_part_path(part) : part_path(part) %>" class="block max-w-sm bg-white rounded-lg border border-gray-200 shadow-md cursor-pointer hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
       <% if part.image.representable? %>
         <%= image_tag part.image.representation(resize_to_limit: [512, 512]), class: 'rounded-t-lg w-full' %>
       <% end %>

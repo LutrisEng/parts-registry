@@ -33,3 +33,17 @@
 <div class="block p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
   <%= @part.description %>
 </div>
+<h3>Attachments</h3>
+<ul class="list">
+  <% @part.attachments.each do |attachment| %>
+    <li><%= link_to attachment.filename, rails_blob_path(attachment, disposition: 'attachment'), class: 'link' %></li>
+  <% end %>
+  <% if @admin %>
+    <li>
+      <%= form_for @part, url: add_attachment_admin_part_path(@part), method: :post, builder: ComponentFormBuilder do |f| %>
+        <%= f.file_field :attachments %>
+        <%= f.submit "Upload" %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

@@ -2,6 +2,7 @@
 
 class Part < ApplicationRecord
   has_one_attached :image
+  has_many_attached :attachments
 
   after_commit :update_shopify_product!, on: :update
   after_commit :destroy_shopify_product!, on: :destroy
