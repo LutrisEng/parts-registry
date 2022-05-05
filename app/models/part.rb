@@ -80,8 +80,12 @@ class Part < ApplicationRecord
     product.title = "#{part_number} - #{name}"
     # Update the existing variant if it already exists
     # We want to set pricing in Shopify
-    product.variants |= []
-    variant = product.variants[0] || {}
+    product.variants = [] if product.variants.nil?
+    variant = if product.variants.empty?
+                {}
+              else
+                product.variants.first
+              end
     variant[:title] = name
     variant[:sku] = part_number
     if mass
