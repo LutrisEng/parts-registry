@@ -42,14 +42,22 @@ class Part < ApplicationRecord
     Part.status_to_short_t(status)
   end
 
+  def shopify_session
+    @shopify_session ||= Ecommerce::ShopifyAuth.create_admin_session
+  end
+
+  def shopify_session!
+    raise StandardError, 'Missing Shopify session!' unless shopify_session
+
+    shopify_session
+  end
+
   def find_shopify_product
     return nil unless shopify_product_id
-
-    session = Ecommerce::ShopifyAuth.create_admin_session
-    return nil unless session
+    return nil unless shopify_session
 
     ShopifyAPI::Product.find(
-      session:,
+      session: shopify_session,
       id: shopify_product_id
     )
   end
@@ -59,7 +67,7 @@ class Part < ApplicationRecord
   end
 
   def can_create_shopify_product?
-    public? and !Ecommerce::ShopifyAuth.create_admin_session.nil?
+    public? and shopify_session
   end
 
   GRAMS = Unit.new('g')
@@ -70,7 +78,6 @@ class Part < ApplicationRecord
   end
 
   def update_shopify_product(product)
-    session = Ecommerce::ShopifyAuth.create_admin_session
     product.body_html = description.to_s
     product.handle = part_number
     product.images = []
@@ -88,7 +95,7 @@ class Part < ApplicationRecord
     # We want to set pricing in Shopify
     product.variants = [] if product.variants.nil?
     variant = if product.variants.empty?
-                ShopifyAPI::Variant.new(session: @session)
+                ShopifyAPI::Variant.new(session: shopify_session)
               else
                 product.variants.first
               end
@@ -107,7 +114,7 @@ class Part < ApplicationRecord
     inventory_item_id = product.variants.first[:inventory_item_id]
     return nil unless inventory_item_id
 
-    ShopifyAPI::InventoryItem.find(inventory_item_id, session: @session)
+    ShopifyAPI::InventoryItem.find(inventory_item_id, session: shopify_session)
   end
 
   def update_inventory_item(inventory_item)
@@ -132,10 +139,7 @@ class Part < ApplicationRecord
   def destroy_shopify_product!
     return unless shopify_product_id
 
-    @session ||= Ecommerce::ShopifyAuth.create_admin_session
-    return unless @session
-
-    ShopifyAPI::Product.delete(id: shopify_product_id, session: @session)
+    ShopifyAPI::Product.delete(id: shopify_product_id, session: shopify_session!)
 
     self.shopify_product_id = nil
   end
@@ -143,10 +147,7 @@ class Part < ApplicationRecord
   def create_shopify_product!
     return if shopify_product_id
 
-    session = Ecommerce::ShopifyAuth.create_admin_session
-    return nil unless session
-
-    product = ShopifyAPI::Product.new(session:)
+    product = ShopifyAPI::Product.new(session: shopify_session!)
     update_shopify_product(product)
     product.save(update_object: true)
     update_shopify_product!
