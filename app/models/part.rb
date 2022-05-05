@@ -89,15 +89,15 @@ class Part < ApplicationRecord
     # We want to set pricing in Shopify
     product.variants = [] if product.variants.nil?
     variant = if product.variants.empty?
-                {}
+                ShopifyAPI::Variant.new
               else
                 product.variants.first
               end
-    variant[:title] = name
-    variant[:sku] = part_number
+    variant.title = name
+    variant.sku = part_number
     if mass
-      variant[:weight] = mass.scalar
-      variant[:weight_unit] = mass.unit_name
+      variant.weight = mass.scalar
+      variant.weight_unit = mass.unit_name
     end
     product.variants[0] = variant
   end
@@ -136,7 +136,7 @@ class Part < ApplicationRecord
     @session ||= Ecommerce::ShopifyAuth.create_admin_session
     return unless @session
 
-    ShopifyAPI::Product.delete(shopify_product_id)
+    ShopifyAPI::Product.delete(id: shopify_product_id, session: @session)
 
     self.shopify_product_id = nil
   end
