@@ -80,8 +80,8 @@ class Part < ApplicationRecord
   def update_shopify_product(product)
     product.body_html = description.to_s
     product.handle = part_number
-    product.images = []
-    product.options = []
+    # product.images = []
+    # product.options = []
     product.product_type = 'Part'
     product.published_scope = 'global'
     # Allow this to be modified in the Shopify dash
