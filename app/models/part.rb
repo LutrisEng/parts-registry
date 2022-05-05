@@ -185,7 +185,7 @@ class Part < ApplicationRecord
     variant = product_variant_for_product(product)
     return unless variant
 
-    Base64.encode64("gid://shopify/ProductVariant/#{variant.id}")
+    Base64.encode64("gid://shopify/ProductVariant/#{variant.id}").strip
   end
 
   def hs_code_description
