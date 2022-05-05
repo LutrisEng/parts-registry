@@ -3,6 +3,8 @@
 module Ecommerce
   module ShopifyAuth
     def create_admin_session
+      ShopifyAPI::Context.load_rest_resources(api_version: '2022-01')
+
       credentials = Rails.application.credentials.dig(Rails.env.to_sym, :shopify)
       return nil unless credentials
 
