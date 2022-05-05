@@ -11,5 +11,8 @@ module Ecommerce
       ShopifyAPI::Auth::Session.new(shop: 'lutris.myshopify.com', access_token: credentials[:admin_api_token])
     end
     module_function :create_admin_session
+
+    shopify_session = Ecommerce::ShopifyAuth.create_admin_session
+    ShopifyAPI::Context.activate_session(shopify_session) if shopify_session
   end
 end
