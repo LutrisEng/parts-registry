@@ -1,9 +1,9 @@
 <%- title "Creating part" %>
 
-<div class="my-6">
+<%= render(ButtonRowComponent.new) do %>
   <%= render(BaseButtonComponent.new(path: admin_parts_path)) do %>
     &larr; Back
   <% end %>
-</div>
+<% end %>
 <h1>Creating part</h1>
 <%= render(PartEditorComponent.new(user: current_user, part: @part)) %>

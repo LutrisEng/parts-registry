@@ -1,9 +1,9 @@
 <%= title 'Parts' %>
 
-<div class="my-6">
+<%= render(ButtonRowComponent.new) do %>
   <%= render(BaseButtonComponent.new(path: new_admin_part_path, style: :primary)) do %>
     New
   <% end %>
-</div>
+<% end %>
 <h1>Parts</h1>
 <%= render(PartsViewerComponent.new(parts: @parts, admin: true)) %>

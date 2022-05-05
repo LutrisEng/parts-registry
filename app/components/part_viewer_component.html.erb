@@ -41,8 +41,14 @@
   <% if @admin %>
     <li>
       <%= form_for @part, url: add_attachment_admin_part_path(@part), method: :post, builder: ComponentFormBuilder do |f| %>
-        <%= f.file_field :attachments %>
-        <%= f.submit "Upload" %>
+        <div class="grid grid-cols-6 gap-6">
+          <div class="col-span-5">
+            <%= f.file_field :attachments %>
+          </div>
+          <div class="col-span-1 flex flex-col justify-center">
+            <%= f.submit "Upload" %>
+          </div>
+        </div>
       <% end %>
     </li>
   <% end %>

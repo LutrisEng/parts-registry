@@ -1,6 +1,6 @@
 <%= title "#{@part.part_number} - #{@part.name}" %>
 
-<div class="my-6">
+<%= render(ButtonRowComponent.new) do %>
   <%= render(BaseButtonComponent.new(path: parts_path)) do %>
     &larr; All Parts
   <% end %>
@@ -14,5 +14,5 @@
       <% end %>
     </span>
   <% end %>
-</div>
+<% end %>
 <%= render(PartViewerComponent.new(part: @part)) %>
