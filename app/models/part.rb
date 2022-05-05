@@ -119,7 +119,7 @@ class Part < ApplicationRecord
 
     product = ShopifyAPI::Product.new(session:)
     update_shopify_product(product)
-    product = product.save(update_object: true)
+    product.save(update_object: true)
 
     update!(shopify_product_id: product.id)
   end
