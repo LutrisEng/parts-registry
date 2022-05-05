@@ -63,7 +63,7 @@ module Admin
 
     def add_attachment
       part = find_part
-      part.attachments.attach(attachment_params[:attachments])
+      part.attachments.attach(attachments_from_params)
       part.save!
       redirect_to admin_part_path(part), status: :see_other
     end
@@ -85,8 +85,8 @@ module Admin
       )
     end
 
-    def attachment_params
-      params.require(:part).permit(:attachments)
+    def attachments_from_params
+      params.require(:part).require(:attachments)
     end
   end
 end

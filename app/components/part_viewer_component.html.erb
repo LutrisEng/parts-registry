@@ -43,7 +43,7 @@
       <%= form_for @part, url: add_attachment_admin_part_path(@part), method: :post, builder: ComponentFormBuilder do |f| %>
         <div class="grid grid-cols-6 gap-6">
           <div class="col-span-5">
-            <%= f.file_field :attachments %>
+            <%= f.file_field :attachments, multiple: true %>
           </div>
           <div class="col-span-1 flex flex-col justify-center">
             <%= f.submit "Upload" %>
