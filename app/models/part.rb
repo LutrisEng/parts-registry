@@ -89,7 +89,7 @@ class Part < ApplicationRecord
     # We want to set pricing in Shopify
     product.variants = [] if product.variants.nil?
     variant = if product.variants.empty?
-                ShopifyAPI::Variant.new
+                ShopifyAPI::Variant.new(session: @session)
               else
                 product.variants.first
               end
@@ -150,6 +150,7 @@ class Part < ApplicationRecord
     product = ShopifyAPI::Product.new(session:)
     update_shopify_product(product)
     product.save(update_object: true)
+    update_shopify_product!
 
     update!(shopify_product_id: product.id)
   end
