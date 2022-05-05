@@ -50,7 +50,7 @@ class Part < ApplicationRecord
   end
 
   def shopify_product
-    @shopify_product |= find_shopify_product
+    @shopify_product ||= find_shopify_product
   end
 
   def can_create_shopify_product?
@@ -61,7 +61,7 @@ class Part < ApplicationRecord
   DEFAULT_MASS_UNIT = GRAMS
 
   def mass
-    @mass |= mass_grams * DEFAULT_MASS_UNIT if mass_grams
+    @mass ||= mass_grams * DEFAULT_MASS_UNIT if mass_grams
   end
 
   def update_shopify_product(product)
