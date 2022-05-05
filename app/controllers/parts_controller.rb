@@ -5,7 +5,7 @@ class PartsController < ApplicationController
   after_action :verify_policy_scoped, only: :index
 
   def find_part
-    authorize Part.find_by_part_number(params[:part_number])
+    authorize Part.find_by_part_number!(params[:part_number])
   end
 
   def index
