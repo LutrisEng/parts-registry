@@ -8,7 +8,13 @@
 <% if @part.created_by %>
   <p>Created by <%= @part.created_by %></p>
 <% end %>
+<% if @part.vendor %>
+  <p>Vendor: <%= @part.vendor %></p>
+<% end %>
+<% if @part.mass %>
+  <p>Mass: <%= @part.mass %></p>
+<% end %>
 <h3>Description</h3>
-<div href="#" class="block p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+<div class="block p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
   <%= @part.description %>
 </div>

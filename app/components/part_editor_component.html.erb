@@ -9,6 +9,12 @@
     <%= f.label :status %>
     <%= f.select :status, Part::ALL_STATUSES.map { |status| [t(Part.status_to_t(status)), status] } %>
 
+    <%= f.label :vendor %>
+    <%= f.text_field :vendor %>
+
+    <%= f.label :mass_grams %>
+    <%= f.text_field :mass_grams %>
+
     <%= f.label :description %>
     <div class="col-span-6 md:col-span-4 lg:col-span-5">
       <%= f.rich_text_area :description %>
