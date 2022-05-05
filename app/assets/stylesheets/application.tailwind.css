@@ -24,6 +24,9 @@
     h6 {
         @apply text-base;
     }
+    trix-editor {
+        @apply prose dark:prose-invert;
+    }
 }
 
 /*
