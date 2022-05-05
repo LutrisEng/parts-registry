@@ -9,7 +9,7 @@
       Public View
     <% end %>
   <% end %>
-  <%= render(BaseButtonComponent.new(path: edit_admin_part_path(@part))) do %>
+  <%= render(BaseButtonComponent.new(path: edit_admin_part_path(@part), style: :primary)) do %>
     Edit
   <% end %>
   <% if @part.shopify_product %>

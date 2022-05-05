@@ -3,3 +3,13 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "trix"
 import "@rails/actiontext"
+
+Sentry.init({
+    dsn: "https://45dba99091084fb8b2a6859bd36e7981@o1155807.ingest.sentry.io/6377927",
+    integrations: [new Sentry.BrowserTracing()],
+
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+});

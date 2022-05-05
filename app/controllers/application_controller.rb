@@ -24,11 +24,13 @@ class ApplicationController < ActionController::Base
   private
 
   def read_user
-    if Rails.env.development?
-      User.new(:dev)
-    else
-      token = request.headers[Auth::CloudflareAccess::HEADER]
-      User.new(token) unless token.nil?
-    end
+    user = if Rails.env.development?
+             User.new(:dev)
+           else
+             token = request.headers[Auth::CloudflareAccess::HEADER]
+             User.new(token) unless token.nil?
+           end
+    Sentry.set_user(email: user.email) if user
+    user
   end
 end

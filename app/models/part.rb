@@ -109,8 +109,8 @@ class Part < ApplicationRecord
     variant.title = name
     variant.sku = part_number
     if mass
-      variant.weight = mass.scalar
-      variant.weight_unit = mass.unit_name
+      variant.weight = mass.convert_to('g').scalar.to_f
+      variant.weight_unit = 'g'
     end
     product.variants[0] = variant
   end
@@ -118,10 +118,10 @@ class Part < ApplicationRecord
   def inventory_item_for_product(product)
     return nil unless product.variants&.first
 
-    inventory_item_id = product.variants.first[:inventory_item_id]
+    inventory_item_id = product.variants.first.inventory_item_id
     return nil unless inventory_item_id
 
-    ShopifyAPI::InventoryItem.find(inventory_item_id, session: shopify_session)
+    ShopifyAPI::InventoryItem.find(id: inventory_item_id, session: shopify_session)
   end
 
   def update_inventory_item(inventory_item)
@@ -136,7 +136,7 @@ class Part < ApplicationRecord
     update_shopify_product(shopify_product)
     shopify_product.save
 
-    inventory_item = inventory_item_for_product(product)
+    inventory_item = inventory_item_for_product(shopify_product)
     return unless inventory_item
 
     update_inventory_item(inventory_item)
