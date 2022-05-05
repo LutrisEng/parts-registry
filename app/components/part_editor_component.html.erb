@@ -14,6 +14,9 @@
     <%= f.label :name %>
     <%= f.text_field :name %>
 
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+
     <%= f.label :status %>
     <%= f.select :status, Part::ALL_STATUSES.map { |status| [t(Part.status_to_t(status)), status] } %>
 

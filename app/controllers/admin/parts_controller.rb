@@ -72,7 +72,8 @@ module Admin
         :vendor,
         :mass_grams,
         :country_of_origin,
-        :hs_code
+        :hs_code,
+        :image
       )
     end
   end

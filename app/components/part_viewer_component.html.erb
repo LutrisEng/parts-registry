@@ -5,6 +5,9 @@
   </span>
 </h1>
 <h2><%= @part.name %></h2>
+<% if @part.image.representable? %>
+  <%= image_tag @part.image.representation({}), class: 'rounded-lg m-6 w-1/2 drop-shadow-md' %>
+<% end %>
 <% if @part.created_by %>
   <p>Created by <%= @part.created_by %></p>
 <% end %>
