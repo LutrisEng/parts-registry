@@ -43,6 +43,12 @@ module Admin
       redirect_to admin_parts_path, status: :see_other
     end
 
+    def create_shopify
+      part = find_part
+      part.create_shopify_product!
+      redirect_to admin_part_path(part), status: :see_other
+    end
+
     private
 
     def part_params

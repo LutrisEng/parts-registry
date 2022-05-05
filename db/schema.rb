@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_220_504_042_855) do
+ActiveRecord::Schema[7.0].define(version: 20_220_505_001_538) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -71,7 +71,9 @@ ActiveRecord::Schema[7.0].define(version: 20_220_504_042_855) do
     t.datetime 'updated_at', null: false
     t.string 'status', null: false
     t.string 'created_by'
+    t.integer 'shopify_product_id'
     t.index ['part_number'], name: 'index_parts_on_part_number'
+    t.index ['shopify_product_id'], name: 'index_parts_on_shopify_product_id'
   end
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'

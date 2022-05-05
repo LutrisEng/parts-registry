@@ -7,6 +7,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/user', to: 'user#show'
-    resources :parts, param: :part_number
+    resources :parts, param: :part_number do
+      member do
+        post :create_shopify
+      end
+    end
   end
 end

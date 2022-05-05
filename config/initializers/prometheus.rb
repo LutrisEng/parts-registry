@@ -1,4 +1,6 @@
-unless Rails.env == "test"
+# frozen_string_literal: true
+
+unless Rails.env == 'test'
   require 'prometheus_exporter/middleware'
 
   # This reports stats per request like HTTP status and timings

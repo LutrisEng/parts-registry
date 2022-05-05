@@ -12,5 +12,12 @@
   <%= render(BaseButtonComponent.new(path: edit_admin_part_path(@part))) do %>
     Edit
   <% end %>
+  <% if @part.shopify_product %>
+    <%= render(BaseButtonComponent.new(path: @part.shopify_product_url)) do %>
+      View in Shopify
+    <% end %>
+  <% elsif @part.can_create_shopify_product? %>
+    <%= button_to "Create Shopify Product", { action: 'create_shopify' }, class: BaseButtonComponent::STYLES[:primary] %>
+  <% end %>
 </div>
 <%= render(PartViewerComponent.new(part: @part)) %>

@@ -97,4 +97,4 @@ gem 'view_component-form', '~> 0.2.4'
 
 gem 'aws-sdk-s3', '~> 1.114', require: false
 
-gem "prometheus_exporter", "~> 2.0"
+gem 'prometheus_exporter', '~> 2.0'
