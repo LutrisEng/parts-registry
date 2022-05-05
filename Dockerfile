@@ -21,11 +21,11 @@ RUN apt-get update && \
 COPY --from=overmind /app/overmind-2.2.2/overmind /usr/local/bin/
 
 WORKDIR /app
-ARG RAILS_ENV=production
-ENV RAILS_ENV=$RAILS_ENV
 COPY Gemfile* ./
 RUN bundle install
 COPY . ./
+ARG RAILS_ENV=production
+ENV RAILS_ENV=$RAILS_ENV
 RUN mv config/credentials.yml.enc config/credentials.yml.enc.real && \
     mv config/credentials.yml.enc.fake config/credentials.yml.enc && \
     mv config/master.key.fake config/master.key && \
