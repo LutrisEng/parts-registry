@@ -72,7 +72,9 @@ class Part < ApplicationRecord
     product.product_type = 'Part'
     product.published_scope = 'global'
     # Allow this to be modified in the Shopify dash
-    # product.status = 'draft'
+    if product.status.nil?
+      product.status = 'draft'
+    end
     product.tags = ''
     product.template_suffix = nil
     product.vendor = vendor
