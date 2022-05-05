@@ -72,7 +72,7 @@ class Part < ApplicationRecord
 
   def update_shopify_product(product)
     session = Ecommerce::ShopifyAuth.create_admin_session
-    product.body_html = ''
+    product.body_html = description.to_s
     product.handle = part_number
     product.images = []
     product.options = []
