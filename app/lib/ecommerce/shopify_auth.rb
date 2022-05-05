@@ -7,7 +7,7 @@ module Ecommerce
       return nil unless credentials
 
       ShopifyAPI::Utils::SessionUtils.load_current_session(
-        auth_header: credentials[:admin_api_token]
+        auth_header: "Bearer #{credentials[:admin_api_token]}"
       )
     end
     module_function :create_admin_session
