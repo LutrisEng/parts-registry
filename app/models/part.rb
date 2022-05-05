@@ -80,15 +80,15 @@ class Part < ApplicationRecord
     product.title = "#{part_number} - #{name}"
     # Update the existing variant if it already exists
     # We want to set pricing in Shopify
-    variant = (product.variants[0] or {
-      title: name,
-      sku: part_number
-    })
+    product.variants |= []
+    variant = product.variants[0] || {}
+    variant[:title] = name
+    variant[:sku] = part_number
     if mass
       variant[:weight] = mass.scalar
       variant[:weight_unit] = mass.unit_name
     end
-    product.variants = [variant]
+    product.variants[0] = variant
   end
 
   def update_shopify_product!
