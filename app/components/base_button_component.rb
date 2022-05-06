@@ -9,7 +9,7 @@ class BaseButtonComponent < ViewComponent::Base
 
   def initialize(style: :secondary, **attrs)
     super
-    @classes = STYLES[style]
+    @classes = "#{STYLES[style]} #{attrs[:class] || ''}"
     @attrs = attrs
   end
 end
