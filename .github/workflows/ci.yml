@@ -29,9 +29,9 @@ jobs:
         uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true
       - name: Build for Staging
-        run: docker build . -t ghcr.io/lutriseng/parts-registry:staging --arg RAILS_ENV=staging
+        run: docker build . -t ghcr.io/lutriseng/parts-registry:staging --build-arg RAILS_ENV=staging
       - name: Build for Production
-        run: docker build . -t ghcr.io/lutriseng/parts-registry:production --arg RAILS_ENV=production
+        run: docker build . -t ghcr.io/lutriseng/parts-registry:production --build-arg RAILS_ENV=production
       - name: Setup Ruby and install gems
         uses: ruby/setup-ruby@v1
         with:
