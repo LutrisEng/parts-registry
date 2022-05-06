@@ -4,8 +4,8 @@
     <div
       data-controller="add-to-cart"
       data-add-to-cart-variant-id-value="<%= @part.shopify_storefront_id %>"
-      data-add-to-cart-domain-value="<%= Rails.credentials.fetch(Rails.env, :shopify, :shop) %>"
-      data-add-to-cart-storefront-access-token-value="<%= Rails.credentials.fetch(Rails.env, :shopify, :storefront_api_token) %>">
+      data-add-to-cart-domain-value="<%= Rails.application.credentials.fetch(Rails.env, :shopify, :shop) %>"
+      data-add-to-cart-storefront-access-token-value="<%= Rails.application.credentials.fetch(Rails.env, :shopify, :storefront_api_token) %>">
 <% end %>
 <%= render(ButtonRowComponent.new) do %>
   <%= render(BaseButtonComponent.new(href: parts_path)) do %>
