@@ -104,3 +104,6 @@ gem 'ruby-units', '~> 2.3'
 gem 'iso_country_codes', '~> 0.7.8'
 
 gem 'open-uri', '~> 0.2.0'
+
+gem "actionpack-page_caching", "~> 1.2"
+gem "actionpack-action_caching", "~> 1.2"
