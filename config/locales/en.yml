@@ -55,6 +55,11 @@ en:
     eol:
       long: "End of Life"
       short: "EOL"
+  relation_types:
+    contains: Contains
+    part_of: Part of
+    manufactured_using: Manufactured using
+    manufactures: Manufactures
   activerecord:
     attributes:
       part:

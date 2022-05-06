@@ -4,6 +4,9 @@ class Part < ApplicationRecord
   has_one_attached :image
   has_many_attached :attachments
 
+  has_many :primary_relations, class_name: 'PartRelation', foreign_key: :part_a
+  has_many :secondary_relations, class_name: 'PartRelation', foreign_key: :part_b
+
   after_commit :update_shopify_product!, on: :update
   after_commit :destroy_shopify_product!, on: :destroy
 
@@ -164,15 +167,15 @@ class Part < ApplicationRecord
       response = client.query(query:, variables: { id: "gid://shopify/Product/#{product.id}" })
 
       Sentry.add_breadcrumb(Sentry::Breadcrumb.new(
-        category: 'shopify',
-        message: 'Received response from publishProduct mutation',
-        level: 'info',
-        data: {
-          code: response.code,
-          headers: response.headers,
-          body: response.body
-        }
-      ))
+                              category: 'shopify',
+                              message: 'Received response from publishProduct mutation',
+                              level: 'info',
+                              data: {
+                                code: response.code,
+                                headers: response.headers,
+                                body: response.body
+                              }
+                            ))
       raise StandardError, response.body[:errors].first[:message] if response.body[:errors]
     ensure
       span.finish
