@@ -15,7 +15,7 @@
     Admin View
   <% end %>
   <% if @part.shopify_product %>
-      <%= render(BaseButtonComponent.new(href: '#', data_action: 'click->add-to-cart#add')) do %>
+      <%= render(BaseButtonComponent.new(href: '#', :'data-action' => 'click->add-to-cart#add')) do %>
         Add to Cart
       <% end %>
   <% end %>
