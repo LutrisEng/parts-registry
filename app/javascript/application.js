@@ -1,8 +1,7 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails"
 import "controllers"
-import "trix"
-import "@rails/actiontext"
+import "@rails/ujs"
 
 Sentry.init({
     dsn: "https://45dba99091084fb8b2a6859bd36e7981@o1155807.ingest.sentry.io/6377927",
