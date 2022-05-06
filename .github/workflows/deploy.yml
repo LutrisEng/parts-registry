@@ -22,6 +22,9 @@ jobs:
         run: |
           docker pull golang:1.18.1-bullseye@sha256:3b1a72af045ad0fff9fe8e00736baae76d70ff51325ac5bb814fe4754044b972
           docker pull ruby:3.1.2-bullseye@sha256:e75f1da5372940f6997c94c9c48db8e4292fb625ca49035fa53e7e5b9124d6fb
+          docker pull ghcr.io/lutriseng/parts-registry:staging
+          docker pull ghcr.io/lutriseng/parts-registry:production
+        continue-on-error: true
       - name: Use Docker layer caching
         uses: satackey/action-docker-layer-caching@v0.0.11
         continue-on-error: true
