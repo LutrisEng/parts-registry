@@ -1,5 +1,8 @@
 <%= title "#{@part.part_number} - #{@part.name}" %>
 
+<% if @part.shopify_product %>
+    <div data-controller="add-to-cart" data-add-to-cart-variant-id-value="<%= @part.shopify_storefront_id %>">
+<% end %>
 <%= render(ButtonRowComponent.new) do %>
   <%= render(BaseButtonComponent.new(path: parts_path)) do %>
     &larr; All Parts
@@ -8,11 +11,12 @@
     Admin View
   <% end %>
   <% if @part.shopify_product %>
-    <span data-controller="add-to-cart" data-action="click->add-to-cart#add" data-add-to-cart-variant-id-value="<%= @part.shopify_storefront_id %>">
-      <%= render(BaseButtonComponent.new(path: '#')) do %>
+      <%= render(BaseButtonComponent.new(path: '#', additional_attrs: 'data-action="click->add-to-cart#add"')) do %>
         Add to Cart
       <% end %>
-    </span>
   <% end %>
+<% end %>
+<% if @part.shopify_product %>
+  </div>
 <% end %>
 <%= render(PartViewerComponent.new(part: @part)) %>
