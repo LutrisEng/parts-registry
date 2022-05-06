@@ -16,7 +16,7 @@
   <% end %>
   <% if @part.shopify_product %>
       <%= render(BaseButtonComponent.new(href: '#', :'data-action' => 'click->add-to-cart#add')) do %>
-        Add to Cart
+        Add to Cart <noscript>(Unavailable since JavaScript is disabled.)</noscript>
       <% end %>
   <% end %>
 <% end %>
