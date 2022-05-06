@@ -14,6 +14,9 @@
     <%= f.label :name %>
     <%= f.text_field :name %>
 
+    <%= f.label :prop_65 %>
+    <%= f.select :prop_65, [[t("prop_65.admin.none"), ''], [t("prop_65.admin.carcinogens"), "carcinogens"], [t("prop_65.admin.reproductive"), "reproductive"], [t("prop_65.admin.both"), "both"]] %>
+
     <%= f.label :image %>
     <%= f.file_field :image %>
 

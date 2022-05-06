@@ -81,6 +81,7 @@ module Admin
         :country_of_origin,
         :hs_code,
         :image,
+        :prop_65,
         attachments: []
       )
     end

@@ -8,6 +8,18 @@
 <% if @part.image.representable? %>
   <%= image_tag @part.image.representation({}), class: 'rounded-lg m-6 w-1/2 drop-shadow-md' %>
 <% end %>
+<% unless @part.prop_65.blank? %>
+  <p class="p-4 mb-4 text-sm text-orange-700 bg-orange-100 rounded-lg dark:bg-orange-200 dark:text-orange-800" role="alert">
+    <strong class="text-bold">WARNING:</strong>
+    <% if @part.prop_65 == "carcinogens" %>
+      <%= t('prop_65.public.carcinogens').html_safe %>
+    <% elsif @part.prop_65 == "reproductive" %>
+      <%= t('prop_65.public.reproductive').html_safe %>
+    <% else %>
+      <%= t('prop_65.public.both').html_safe %>
+    <% end %>
+  </p>
+<% end %>
 <% if @part.created_by %>
   <p>Created by <%= @part.created_by %></p>
 <% end %>
