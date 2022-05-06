@@ -11,4 +11,4 @@ pin 'trix'
 pin '@rails/actiontext', to: 'actiontext.js'
 pin_all_from 'app/javascript/controllers', under: 'controllers'
 pin 'shopify-buy' # @2.15.1
-pin "@rails/ujs", to: "@rails--ujs.js" # @7.0.2
+pin '@rails/ujs', to: '@rails--ujs.js', preload: true # @7.0.2
