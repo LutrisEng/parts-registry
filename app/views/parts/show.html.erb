@@ -4,14 +4,14 @@
     <div data-controller="add-to-cart" data-add-to-cart-variant-id-value="<%= @part.shopify_storefront_id %>">
 <% end %>
 <%= render(ButtonRowComponent.new) do %>
-  <%= render(BaseButtonComponent.new(path: parts_path)) do %>
+  <%= render(BaseButtonComponent.new(href: parts_path)) do %>
     &larr; All Parts
   <% end %>
-  <%= render(BaseButtonComponent.new(path: admin_part_path(@part))) do %>
+  <%= render(BaseButtonComponent.new(href: admin_part_path(@part))) do %>
     Admin View
   <% end %>
   <% if @part.shopify_product %>
-      <%= render(BaseButtonComponent.new(path: '#', additional_attrs: 'data-action="click->add-to-cart#add"')) do %>
+      <%= render(BaseButtonComponent.new(href: '#', data_action: 'click->add-to-cart#add')) do %>
         Add to Cart
       <% end %>
   <% end %>

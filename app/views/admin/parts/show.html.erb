@@ -1,19 +1,19 @@
 <%= title "#{@part.part_number} - #{@part.name}" %>
 
 <%= render(ButtonRowComponent.new) do %>
-  <%= render(BaseButtonComponent.new(path: admin_parts_path)) do %>
+  <%= render(BaseButtonComponent.new(href: admin_parts_path)) do %>
     &larr; All Parts
   <% end %>
   <% if @part.public? %>
-    <%= render(BaseButtonComponent.new(path: part_path(@part))) do %>
+    <%= render(BaseButtonComponent.new(href: part_path(@part))) do %>
       Public View
     <% end %>
   <% end %>
-  <%= render(BaseButtonComponent.new(path: edit_admin_part_path(@part), style: :primary)) do %>
+  <%= render(BaseButtonComponent.new(href: edit_admin_part_path(@part), style: :primary)) do %>
     Edit
   <% end %>
   <% if @part.shopify_product %>
-    <%= render(BaseButtonComponent.new(path: @part.shopify_product_url, target: '_blank')) do %>
+    <%= render(BaseButtonComponent.new(href: @part.shopify_product_url, target: '_blank')) do %>
       View in Shopify
     <% end %>
     <%= button_to "Destroy Shopify Product", { action: 'destroy_shopify' }, class: BaseButtonComponent::STYLES[:danger], form_class: 'inline' %>

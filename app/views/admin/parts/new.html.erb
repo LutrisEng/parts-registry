@@ -1,7 +1,7 @@
 <%- title "Creating part" %>
 
 <%= render(ButtonRowComponent.new) do %>
-  <%= render(BaseButtonComponent.new(path: admin_parts_path)) do %>
+  <%= render(BaseButtonComponent.new(href: admin_parts_path)) do %>
     &larr; Back
   <% end %>
 <% end %>
