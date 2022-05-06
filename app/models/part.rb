@@ -243,7 +243,7 @@ class Part < ApplicationRecord
   end
 
   def shopify_product_url
-    "https://lutris.myshopify.com/admin/products/#{shopify_product_id}" if shopify_product_id
+    "https://#{Ecommerce::ShopifyAuth.credentials[:shop]}/admin/products/#{shopify_product_id}" if shopify_product_id
   end
 
   def shopify_storefront_id
