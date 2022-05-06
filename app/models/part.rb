@@ -183,8 +183,16 @@ class Part < ApplicationRecord
   end
 
   def update_inventory_item(inventory_item)
-    inventory_item.country_code_of_origin = country_of_origin
-    inventory_item.harmonized_system_code = hs_code
+    inventory_item.country_code_of_origin = if country_of_origin.blank?
+                                              nil
+                                            else
+                                              country_of_origin
+                                            end
+    inventory_item.harmonized_system_code = if hs_code.blank?
+                                              nil
+                                            else
+                                              hs_code
+                                            end
     inventory_item.sku = part_number
   end
 
