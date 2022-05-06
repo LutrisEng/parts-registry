@@ -10,8 +10,29 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
       - name: Set up Fly.io
         uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: Pull Docker base images
+        run: |
+          docker pull golang:1.18.1-bullseye@sha256:3b1a72af045ad0fff9fe8e00736baae76d70ff51325ac5bb814fe4754044b972
+          docker pull ruby:3.1.2-bullseye@sha256:e75f1da5372940f6997c94c9c48db8e4292fb625ca49035fa53e7e5b9124d6fb
+      - name: Use Docker layer caching
+        uses: satackey/action-docker-layer-caching@v0.0.11
+        continue-on-error: true
+      - name: Build for Staging
+        run: docker build . -t ghcr.io/lutriseng/parts-registry:staging --arg RAILS_ENV=staging
+      - name: Build for Production
+        run: docker build . -t ghcr.io/lutriseng/parts-registry:production --arg RAILS_ENV=production
+      - name: Push Docker images
+        run: |
+          docker push ghcr.io/lutriseng/parts-registry:staging
+          docker push ghcr.io/lutriseng/parts-registry:production
       - name: Deploy staging
         run: ./deploy-staging.sh --local-only
         env:
