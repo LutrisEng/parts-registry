@@ -12,7 +12,7 @@ module Ecommerce
 
       return nil unless credentials
 
-      ShopifyAPI::Auth::Session.new(shop: credentials[:shop], access_token: credentials[:admin_api_token])
+      ShopifyAPI::Auth::Session.new(shop: credentials[:admin], access_token: credentials[:admin_api_token])
     end
     module_function :create_admin_session
 
