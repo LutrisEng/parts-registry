@@ -41,9 +41,15 @@ export default class AddToCartController extends Controller {
         const variantId = this.variantIdValue
         console.log('Adding to cart!', { variantId })
         let checkout = await this.getCheckout()
-        console.log('Created checkout', { checkout })
+        console.log('Got checkout', { checkout })
         checkout = await this.client.checkout.addLineItems(checkout.id, [{ variantId, quantity: 1 }])
         console.log('Added line item', { checkout })
+        location.href = checkout.webUrl
+    }
+
+    async startCheckout() {
+        const checkout = await this.getCheckout()
+        console.log('Got checkout', { checkout })
         location.href = checkout.webUrl
     }
 }

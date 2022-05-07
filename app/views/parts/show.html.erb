@@ -15,7 +15,10 @@
     Admin View
   <% end %>
   <% if @part.shopify_product %>
-      <%= render(BaseButtonComponent.new(href: '#', :'data-action' => 'click->add-to-cart#add')) do %>
+      <%= render(BaseButtonComponent.new(href: '#', style: :primary, :'data-action' => 'click->add-to-cart#add')) do %>
+        Add to Cart <noscript>(Unavailable since JavaScript is disabled.)</noscript>
+      <% end %>
+      <%= render(BaseButtonComponent.new(href: '#', :'data-action' => 'click->add-to-cart#startCheckout')) do %>
         Add to Cart <noscript>(Unavailable since JavaScript is disabled.)</noscript>
       <% end %>
   <% end %>
