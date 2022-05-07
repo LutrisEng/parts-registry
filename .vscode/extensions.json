@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "bungcip.better-toml",
+        "rebornix.ruby",
+        "bradlc.vscode-tailwindcss",
+        "redhat.vscode-yaml",
+        "wingrunr21.vscode-ruby"
+    ]
+}
