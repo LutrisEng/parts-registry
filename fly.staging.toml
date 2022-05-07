@@ -6,8 +6,8 @@ kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
-[build.args]
-  RAILS_ENV = "staging"
+[build]
+image = "ghcr.io/lutriseng/parts-registry:staging"
 
 [env]
   RAILS_ENV = "staging"

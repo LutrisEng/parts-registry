@@ -16,26 +16,26 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ github.token }}
+      - name: Setup Docker buildx
+        uses: docker/setup-buildx-action@v1
       - name: Set up Fly.io
         uses: superfly/flyctl-actions/setup-flyctl@master
-      - name: Pull Docker base images
-        run: |
-          docker pull golang:1.18.1-bullseye@sha256:3b1a72af045ad0fff9fe8e00736baae76d70ff51325ac5bb814fe4754044b972
-          docker pull ruby:3.1.2-bullseye@sha256:e75f1da5372940f6997c94c9c48db8e4292fb625ca49035fa53e7e5b9124d6fb
-          docker pull ghcr.io/lutriseng/parts-registry:staging
-          docker pull ghcr.io/lutriseng/parts-registry:production
-        continue-on-error: true
-      - name: Use Docker layer caching
-        uses: satackey/action-docker-layer-caching@v0.0.11
-        continue-on-error: true
-      - name: Build for Staging
-        run: docker build . -t ghcr.io/lutriseng/parts-registry:staging --build-arg RAILS_ENV=staging
-      - name: Build for Production
-        run: docker build . -t ghcr.io/lutriseng/parts-registry:production --build-arg RAILS_ENV=production
-      - name: Push Docker images
-        run: |
-          docker push ghcr.io/lutriseng/parts-registry:staging
-          docker push ghcr.io/lutriseng/parts-registry:production
+      - name: Build and push staging
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: ghcr.io/lutriseng/parts-registry:staging
+          cache-from: type=registry,ref=ghcr.io/lutriseng/parts-registry:cache
+          cache-to: type=registry,ref=ghcr.io/lutriseng/parts-registry:cache,mode=max
+          build-args: RAILS_ENV=staging
+      - name: Build and push production
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: ghcr.io/lutriseng/parts-registry:production
+          cache-from: type=registry,ref=ghcr.io/lutriseng/parts-registry:cache
+          cache-to: type=registry,ref=ghcr.io/lutriseng/parts-registry:cache,mode=max
+          build-args: RAILS_ENV=production
       - name: Deploy staging
         run: ./deploy-staging.sh --local-only
         env:
