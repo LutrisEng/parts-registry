@@ -86,7 +86,7 @@ gem 'shopify_api', '~> 10.0'
 
 gem 'jwt', '~> 2.3'
 
-gem 'httparty', '~> 0.20.0'
+gem 'httparty', '~> 0.21.0'
 
 gem 'sentry-rails', '~> 5.3'
 gem 'sentry-ruby', '~> 5.3'
